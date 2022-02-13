@@ -2,10 +2,23 @@ const express=require('express');
 const app=express();
 const connectDB=require('./config/db');
 const path=require('path');
+const cors=require('cors');
 
 connectDB();
 
 app.set('views',path.join(__dirname,'/views'));
+
+//Cors
+
+const corsOptions={
+    origin:process.env.ALLOWED_CLIENTS.split(',')
+
+}
+
+
+app.use(cors(corsOptions));
+
+//templating engine
 
 app.set('view engine','ejs');
 app.use(express.json());
